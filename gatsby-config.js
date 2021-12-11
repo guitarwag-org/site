@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
-    title: "site",
+    siteUrl: "https://www.guitarwag.com",
+    title: "guitarwag",
   },
   plugins: [
     "gatsby-plugin-styled-components",
     {
       resolve: "gatsby-plugin-google-analytics",
       options: {
-        trackingId: "",
+        trackingId: "G-P111EHHZQ4",
       },
     },
     "gatsby-plugin-image",
@@ -17,7 +17,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/images/icon.png",
+        icon: "src/images/icon.jpeg",
       },
     },
     "gatsby-plugin-mdx",
