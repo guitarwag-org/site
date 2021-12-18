@@ -6,4 +6,10 @@
 
 body {
     font-family: 'Readex Pro', sans-serif;
+    overflow-x: hidden;
+
+}
+
+div {
+    box-sizing: border-box;
 }
