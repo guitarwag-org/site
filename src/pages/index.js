@@ -3,17 +3,50 @@ import * as React from "react"
 import map from 'lodash/map';
 import join from 'lodash/join';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import {mockPacks} from "../services/Pack";
+import {mockPacks, Pack} from "../services/Pack";
 import ReactAudioPlayer from 'react-audio-player';
 import {Stripe} from "../components/Stripe";
 import {size} from "lodash";
+import {ShoppingCartContextProvider, useShoppingCart} from "../contexts/shopping-cart";
+import {useCallback} from "react";
 
 
 
 const packs = mockPacks();
 // markup
+
+const Items = () => {
+    const { selectedItems } = useShoppingCart();
+    return (
+        <div className="gap-4 flex w-auto">
+            <button onClick={() => alert('Hi')} className="bg-gray-300 p-3 hover:bg-gray-400">
+                FINISH ORDER
+            </button>
+            <button onClick={() => alert('Hi')} className="bg-gray-300 p-3 hover:bg-gray-400">
+                <AiOutlineShoppingCart />
+                <p className="relative">
+                    {size(selectedItems)}
+                </p>
+            </button>
+        </div>
+    )
+}
+
+const AddToCart = () => {
+    const { selectedItems, addNewItem } = useShoppingCart();
+    const onClick = useCallback(() => {
+         addNewItem(new Pack())
+    }, [])
+    return (
+        <button onClick={onClick} className="bg-gray-300 p-3 hover:bg-gray-400 mt-4 text-black">
+            ADD TO CART
+        </button>
+    )
+}
+
 const IndexPage = () => {
   return (
+      <ShoppingCartContextProvider>
     <main className="bg-gray-200 h-full w-screen">
         <header className="w-screen p-4 justify-center flex absolute">
             <h1 className="text-3xl">guitarwag</h1>
@@ -28,17 +61,7 @@ const IndexPage = () => {
             </button>
             </div>
 
-            <div className="gap-4 flex w-auto">
-                <button onClick={() => alert('Hi')} className="bg-gray-300 p-3 hover:bg-gray-400">
-                    FINISH ORDER
-                </button>
-                <button onClick={() => alert('Hi')} className="bg-gray-300 p-3 hover:bg-gray-400">
-                    <AiOutlineShoppingCart />
-                    <p className="relative">
-                        2
-                    </p>
-                </button>
-            </div>
+            <Items/>
         </div>
         <div className="w-screen px-8 justify-between flex flex-col">
             <input placeholder="search for a pack..." className="p-4 w-full"/>
@@ -71,9 +94,7 @@ const IndexPage = () => {
                                     />
                                 </div>
                             ))}
-                            <button onClick={() => alert('Hi')} className="bg-gray-300 p-3 hover:bg-gray-400 mt-4 text-black">
-                                ADD TO CART
-                            </button>
+                            <AddToCart/>
                         </div>
 
                     </div>
@@ -82,6 +103,7 @@ const IndexPage = () => {
 
         </div>
     </main>
+      </ShoppingCartContextProvider>
   )
 }
 
